@@ -57,20 +57,19 @@ public class excelExport {
         initialList.clear();
     }
 
-    private double pythag(double x, double y) {
-        double distance = x*x + y*y;
+    private double findDistance(double x1, double y1, double x2, double y2) {
+        double distance = Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2);
         return Math.sqrt(distance);
     }
 
-    //output formatting: distance, total extrusion, difference in extrusion
+    //output formatting: distance, difference in extrusion
     public void export() {
-        double prevE = 0.0;
-        for (int i = 0; i < gcodeList.size(); i++) {
-            Double[] line = gcodeList.pop();
-            double distance = this.pythag(line[0], line[1]);
-            double diff = line[2] - prevE;
-            output.printf("%f,%f,%f\n", distance, line[2], diff);
-            prevE = line[2];
+        for (int i = 0; i < gcodeList.size(); i+=2) {
+            Double[] line1 = gcodeList.pop();
+            Double[] line2 = gcodeList.pop();
+            double distance = this.findDistance(line1[0], line1[1], line2[0], line2[1]);
+            double diff = line2[2] - line1[2];
+            output.printf("%f,%f\n", distance, diff);
         }
         gcodeList.clear();
         input.close();
