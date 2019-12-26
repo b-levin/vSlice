@@ -27,14 +27,20 @@ public class excelExport {
         }
     }
 
+    public void trim(int num) {
+        for (int i = 0; i < num; i++) {
+            initialList.remove(0);
+        }
+    }
+
     public void process() {
         for (int i = 0; i < initialList.size(); i++) {
             String line = initialList.pop();
-            if (line.contains("G1")) {
+            if (line.contains("G1 X") &&
+                line.contains("Y") &&
+                line.contains("E") &&
+                !line.contains("F")) {
                 String[] lineContents = line.split(" ");
-                for (int j = 0; j < lineContents.length; j++) {
-                    System.out.println(lineContents[j]);
-                }
                 Double[] out = new Double[3];
                 String xVal = lineContents[1].replace("X", "");
                 double x = Double.valueOf(xVal);
@@ -56,12 +62,17 @@ public class excelExport {
         return Math.sqrt(distance);
     }
 
+    //output formatting: distance, total extrusion, difference in extrusion
     public void export() {
+        double prevE = 0.0;
         for (int i = 0; i < gcodeList.size(); i++) {
             Double[] line = gcodeList.pop();
             double distance = this.pythag(line[0], line[1]);
-            output.printf("%f,%f\n", distance, line[2]);
+            double diff = line[2] - prevE;
+            output.printf("%f,%f,%f\n", distance, line[2], diff);
+            prevE = line[2];
         }
+        gcodeList.clear();
         input.close();
         output.close();
     }
