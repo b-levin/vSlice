@@ -4,8 +4,8 @@ public class excelExportDriver {
         String[] out = new String[12];
         int layerHeight = 100;
         for (int i = 0; i < out.length; i++) {
-            String inName = inPath + layerHeight + "_benchy.gcode";
-            String outName = outPath + layerHeight + "_benchy.csv";
+            String inName = inPath + "cube_" + layerHeight + ".gcode";
+            String outName = outPath + "cube_" + layerHeight + ".csv";
             out[i] = inName;
             i++;
             out[i] = outName;
@@ -16,7 +16,7 @@ public class excelExportDriver {
 
 
     public static void main(String[] args) {
-        String inPath = "/mnt/c/Users/windr/Documents/vSlice/benchy_gcode/";
+        String inPath = "/mnt/c/Users/windr/Documents/vSlice/cube_gcode/";
         String outPath = "/mnt/c/Users/windr/Documents/vSlice/csv/";
         String[] fileNames = genFilesNames(inPath, outPath);
         for (int i = 0; i < fileNames.length; i += 2) {
