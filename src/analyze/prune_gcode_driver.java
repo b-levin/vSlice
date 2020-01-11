@@ -1,6 +1,10 @@
-public class excelExportDriver {
+package analyze;
+
+public class prune_gcode_driver {
 
     public static String[] genFilesNames(String inPath, String outPath) {
+        //Generates an array of the filenames for input/output
+        //form: in_1, out_1, in_2, out_2....
         String[] out = new String[12];
         int layerHeight = 100;
         for (int i = 0; i < out.length; i++) {
@@ -13,16 +17,13 @@ public class excelExportDriver {
         }
         return out;
     }
-
-
-    public static void main(String[] args) {
+    public static void main(String args[]) {
         String inPath = "/mnt/c/Users/windr/Documents/vSlice/cube_gcode/";
         String outPath = "/mnt/c/Users/windr/Documents/vSlice/csv/";
         String[] fileNames = genFilesNames(inPath, outPath);
         for (int i = 0; i < fileNames.length; i += 2) {
-            excelExport gcode = new excelExport(fileNames[i], fileNames[i+1]);
+            prune_gcode gcode = new prune_gcode(fileNames[i], fileNames[i+1]);
             gcode.read();
-            gcode.trim(40);
             gcode.process();
             gcode.export();
         }
