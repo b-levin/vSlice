@@ -17,9 +17,9 @@ public class prune_gcode_driver {
         }
         return out;
     }
-    public static void main(String args[]) {
-        String inPath = "/mnt/c/Users/windr/Documents/vSlice/cube_gcode/";
-        String outPath = "/mnt/c/Users/windr/Documents/vSlice/csv/";
+
+    public static void runPrune(String inPath, String outPath) {
+        //Runs the prune_gcode class for 100 to 350 um files
         String[] fileNames = genFilesNames(inPath, outPath);
         for (int i = 0; i < fileNames.length; i += 2) {
             prune_gcode gcode = new prune_gcode(fileNames[i], fileNames[i+1]);
@@ -27,5 +27,11 @@ public class prune_gcode_driver {
             gcode.process();
             gcode.export();
         }
+    }
+
+    public static void main(String args[]) {
+        String inPath = "/mnt/c/Users/windr/Documents/vSlice/cube_gcode/";
+        String outPath = "/mnt/c/Users/windr/Documents/vSlice/csv/";
+        runPrune(inPath, outPath);
     }
 }
