@@ -17,7 +17,7 @@ public class prune_gcode {
             this.gcodeList = new LinkedList<>();
             this.coordList = new LinkedList<>();
         } catch (FileNotFoundException e) {
-            System.out.printf("Error, %s not found.", inputName);
+            System.out.printf("Error, %s not found.\n", inputName);
         }
     }
 
